@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, Inject} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {
   MatDialogActions,
@@ -6,6 +6,7 @@ import {
   MatDialogContent,
   MatDialogRef,
   MatDialogTitle,
+  MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 
 @Component({
@@ -17,4 +18,6 @@ import {
 })
 export class ModalComponent {
   readonly dialogRef = inject(MatDialogRef<ModalComponent>);
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 }
