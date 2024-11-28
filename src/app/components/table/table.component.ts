@@ -96,4 +96,11 @@ export class TableComponent {
     }
   }
 
+  openHeroeModal(row: any): void {
+    // this.dialog.open(HeroModalComponent, {
+    //   width: '400px',
+    //   data: row // Pasar los datos de la fila seleccionada al modal
+    // });
+  }
+
 }
