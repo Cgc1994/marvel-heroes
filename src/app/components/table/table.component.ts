@@ -8,8 +8,12 @@ import {MatAutocompleteModule, MatAutocompleteSelectedEvent} from '@angular/mate
 import {MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
+import {
+  MatDialog,
+} from '@angular/material/dialog';
 
 import marvelData  from '../../assets/mock-data/wikipedia_marvel_data.json'; 
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-table',
@@ -39,6 +43,9 @@ export class TableComponent {
       : this.allHeroes();
   });
   readonly announcer = inject(LiveAnnouncer);
+
+  //dialog
+  readonly dialog = inject(MatDialog);
 
   @ViewChild(MatSort)
   sort: MatSort = new MatSort;
@@ -97,10 +104,10 @@ export class TableComponent {
   }
 
   openHeroeModal(row: any): void {
-    // this.dialog.open(HeroModalComponent, {
-    //   width: '400px',
-    //   data: row // Pasar los datos de la fila seleccionada al modal
-    // });
+    this.dialog.open(ModalComponent, {
+      width: '400px',
+      data: row
+    });
   }
 
 }
