@@ -1,0 +1,53 @@
+<div class="example-action-buttons">
+  <button mat-button (click)="accordion().openAll()">Create heroe</button>
+</div>
+<mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Heroe data </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="heroe.name" />
+    </mat-form-field>
+    
+    <mat-form-field>
+      <mat-label>Creator</mat-label>
+      <input matInput [(ngModel)]="heroe.creator" />
+    </mat-form-field>
+    
+    <mat-form-field>
+      <mat-label>Country</mat-label>
+      <input matInput [(ngModel)]="heroe.country" />
+    </mat-form-field>
+    
+    <mat-form-field>
+      <mat-label>Gender</mat-label>
+      <mat-select [(ngModel)]="heroe.gender">
+        <mat-option value="male">Male</mat-option>
+        <mat-option value="female">Female</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field>
+      <mat-label>Member of</mat-label>
+      <input matInput [(ngModel)]="heroe.memberOf" />
+    </mat-form-field>
+    
+    <mat-form-field>
+      <mat-label>Occupation</mat-label>
+      <input matInput [(ngModel)]="heroe.occupation" />
+    </mat-form-field>
+    
+    <mat-form-field>
+      <mat-label>Skills</mat-label>
+      <input matInput [(ngModel)]="heroe.skills" />
+    </mat-form-field>
+    
+
+    <div class="button-container">
+      <button mat-raised-button color="primary" class="create-button" (click)="createHeroe()">Create</button>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
