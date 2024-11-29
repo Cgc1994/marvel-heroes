@@ -1,5 +1,5 @@
 import {LiveAnnouncer} from '@angular/cdk/a11y';
-import {AfterViewInit, Component, ViewChild, inject, ChangeDetectionStrategy, computed, model, signal} from '@angular/core';
+import {AfterViewInit, Component, ViewChild, inject, ChangeDetectionStrategy, computed, model, signal, Input} from '@angular/core';
 import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
@@ -11,8 +11,6 @@ import {MatIconModule} from '@angular/material/icon';
 import {
   MatDialog,
 } from '@angular/material/dialog';
-
-import marvelData  from '../../assets/mock-data/wikipedia_marvel_data.json'; 
 import { ModalComponent } from '../modal/modal.component';
 
 @Component({
@@ -24,9 +22,10 @@ import { ModalComponent } from '../modal/modal.component';
 })
 export class TableComponent {
   //table logic
-  displayedColumns: string[] = ['nameLabel', 'creatorLabel', 'citizenshipLabel', 'genderLabel', 'memberOfLabel', 'occupationLabel', 'skillsLabel'];
-  dataSource = new MatTableDataSource(marvelData);
-  private originalData = marvelData;
+  @Input() columns: string[] = [];
+  @Input() data: any= [];
+  dataSource = new MatTableDataSource(this.data);
+  private originalData = this.data;
 
   //sort
   private _liveAnnouncer = inject(LiveAnnouncer);
@@ -35,11 +34,11 @@ export class TableComponent {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   readonly currentHeroe = model('');
   readonly heroes = signal<string[]>([]);
-  readonly allHeroes = computed(() => marvelData.map(item => item.nameLabel));
+  readonly allHeroes = computed(() => this.data.map((item: { nameLabel: any; }) => item.nameLabel));
   readonly filteredHeroes = computed(() => {
     const currentHeroe = this.currentHeroe().toLowerCase();
     return currentHeroe
-      ? this.allHeroes().filter(heroe => heroe.toLowerCase().includes(currentHeroe))
+      ? this.allHeroes().filter((heroe: string) => heroe.toLowerCase().includes(currentHeroe))
       : this.allHeroes();
   });
   readonly announcer = inject(LiveAnnouncer);
@@ -51,6 +50,8 @@ export class TableComponent {
   sort: MatSort = new MatSort;
 
   ngAfterViewInit() {
+    this.originalData = this.data;
+    this.dataSource = new MatTableDataSource(this.data);
     this.dataSource.sort = this.sort;
   }
 
@@ -97,7 +98,7 @@ export class TableComponent {
     if (selectedHeroes.length === 0) {
       this.dataSource.data = this.originalData;
     } else {
-      this.dataSource.data = this.originalData.filter(item =>
+      this.dataSource.data = this.originalData.filter((item: { nameLabel: string; }) =>
         selectedHeroes.includes(item.nameLabel)
       );
     }
