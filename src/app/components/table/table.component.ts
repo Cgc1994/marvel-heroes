@@ -21,8 +21,8 @@ export class TableComponent {
   @Input() columns: string[] = [];
   @Input() data: any= [];
 
-  @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
+  @Output() edit = new EventEmitter<any>();
 
   dataSource = new MatTableDataSource(this.data);
   private originalData = this.data;
@@ -35,6 +35,8 @@ export class TableComponent {
 
   @ViewChild(MatSort)
   sort: MatSort = new MatSort;
+
+  // constructor(private dialog: MatDialog) {}
 
   ngAfterViewInit() {
     this.originalData = this.data;
@@ -59,18 +61,27 @@ export class TableComponent {
   }
 
   openHeroeModal(row: any, event: MouseEvent): void {
-    const target = event.target as HTMLElement;
-    if (target.localName === 'mat-icon') {
+    const target = event.target as HTMLElement;    
+    if (target.localName === 'mat-icon' || target.localName === 'button') {
       return;
     }
     this.dialog.open(ModalComponent, {
-      width: '400px',
-      data: row
+      width: '1000px',
+      data: { ...row, disabled: true }
     });
   }
 
-  onEdit(element: any): void {
-    this.edit.emit(element);
+  onEdit(row: any): void {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '1000px',
+      data: { ...row, disabled: false }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.edit.emit(result);
+      }
+    });
   }
 
   onDelete(element: any): void {

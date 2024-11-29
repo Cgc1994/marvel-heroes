@@ -1,13 +1,41 @@
 <h2 mat-dialog-title>Heroe details</h2>
 <mat-dialog-content>
-  <p><strong>Name:</strong> {{ data.nameLabel }}</p>
-  <p><strong>Creator:</strong> {{ data.creatorLabel }}</p>
-  <p><strong>Country:</strong> {{ data.citizenshipLabel }}</p>
-  <p><strong>Gender:</strong> {{ data.genderLabel }}</p>
-  <p><strong>Member:</strong> {{ data.memberOfLabel }}</p>
-  <p><strong>Occupation:</strong> {{ data.occupationLabel }}</p>
-  <p><strong>Skills:</strong> {{ data.skillsLabel }}</p>
+  
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="data.nameLabel" [disabled]="data.disabled" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Creator</mat-label>
+    <input matInput [(ngModel)]="data.creatorLabel" [disabled]="data.disabled" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Country</mat-label>
+    <input matInput [(ngModel)]="data.citizenshipLabel" [disabled]="data.disabled" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Gender</mat-label>
+    <mat-select [(ngModel)]="data.genderLabel" [disabled]="data.disabled">
+      <mat-option value="male">Male</mat-option>
+      <mat-option value="female">Female</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Member</mat-label>
+    <input matInput [(ngModel)]="data.memberOfLabel" [disabled]="data.disabled" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Occupation</mat-label>
+    <input matInput [(ngModel)]="data.occupationLabel" [disabled]="data.disabled" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Skills</mat-label>
+    <input matInput [(ngModel)]="data.skillsLabel" [disabled]="data.disabled" />
+  </mat-form-field>
+
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Close</button>
+  <button *ngIf="!data.disabled" mat-button color="primary" (click)="editHeroe()">Edit</button>
+
 </mat-dialog-actions>

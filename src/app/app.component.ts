@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { TableComponent } from '../app/components/table/table.component';
 import marvelData  from './assets/mock-data/wikipedia_marvel_data.json'; 
-import { ChipFormComponent } from '../app/components/chip-form/chip-form.component'
-import { ExpansionFormComponent } from '../app/components/expansion-form/expansion-form.component'
+import { ChipFormComponent } from '../app/components/chip-form/chip-form.component';
+import { ExpansionFormComponent } from '../app/components/expansion-form/expansion-form.component';
 
 @Component({
   selector: 'app-root',
