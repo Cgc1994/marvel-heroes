@@ -1,14 +1,28 @@
-import { Component, ElementRef, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, ElementRef, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import * as echarts from 'echarts';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',
-  styleUrl: './bar-chart.component.css',
-  styles: []
+  styleUrls: ['./bar-chart.component.css'],
+  styles: [],
+  imports: [
+    MatFormFieldModule,
+    MatSelectModule,
+    CommonModule
+  ]
 })
 export class BarChartComponent implements AfterViewInit {
   @Input() data: { key: string; value: number }[] = [];
+  @Output() optionSelected = new EventEmitter<string>();
+  options: string[] = [
+    'Creator', 'Country', 
+    'Gender', 'Member of', 'Occupation', 'Skills'
+  ];
+  selectedOption: string = this.options[0];
   private chartInstance!: echarts.ECharts;
 
   constructor(private el: ElementRef) {}
@@ -73,4 +87,7 @@ export class BarChartComponent implements AfterViewInit {
       });
     }
   }
+
+  onOptionChange(selected: string): void {
+    this.optionSelected.emit(selected);  }
 }

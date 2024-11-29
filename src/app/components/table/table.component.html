@@ -1,8 +1,9 @@
 <app-bar-chart
   [data]="chartData"
+  (optionSelected)="handleOptionSelected($event)"
 ></app-bar-chart>
-<table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
-       class="mat-elevation-z8">
+
+<table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
 
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef> Actions </th>

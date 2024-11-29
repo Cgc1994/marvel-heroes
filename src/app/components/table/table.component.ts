@@ -39,12 +39,13 @@ export class TableComponent {
 
   //chart
   chartData: { key: string, value: number }[] = [];
+  columnName: string = 'creatorLabel';
 
   ngAfterViewInit() {
     this.originalData = this.data;
     this.dataSource = new MatTableDataSource(this.data);
     this.dataSource.sort = this.sort;   
-    this.updateChartData();
+    this.updateChartData(this.columnName);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -52,7 +53,7 @@ export class TableComponent {
       this.originalData = changes['data'].currentValue;
       this.dataSource = new MatTableDataSource(this.originalData);
       this.dataSource.sort = this.sort;
-      this.updateChartData();
+      this.updateChartData(this.columnName);
     }
   }
 
@@ -92,19 +93,51 @@ export class TableComponent {
     this.delete.emit(element);
   }
 
-  private updateChartData(): void {
-    const countryCounts: { [key: string]: number } = {};
+  private updateChartData(column: string): void {
+    console.log(column);
+    
+    const keyCounts: { [key: string]: number } = {};
     const filteredData = this.dataSource.filteredData;
 
     filteredData.forEach((row: any) => {
-      const country = row.citizenshipLabel || 'Unknown';
-      countryCounts[country] = (countryCounts[country] || 0) + 1;
+      const country = row[column] || 'Unknown';
+      keyCounts[country] = (keyCounts[country] || 0) + 1;
     });
 
-    this.chartData = Object.entries(countryCounts).map(([key, value]) => ({
+    this.chartData = Object.entries(keyCounts).map(([key, value]) => ({
       key,
       value
     }));    
   }
+
+  handleOptionSelected(selectedOption: string): void {
+    this.columnName = '';
+    switch(selectedOption) {
+      case 'Name':
+        this.columnName = 'nameLabel';
+        break;
+      case 'Creator':
+        this.columnName = 'creatorLabel';
+        break;
+      case 'Country':
+        this.columnName = 'citizenshipLabel';
+        break;
+      case 'Gender':
+        this.columnName = 'genderLabel';
+        break;
+      case 'Member of':
+        this.columnName = 'memberOfLabel';
+        break;
+      case 'Occupation':
+        this.columnName = 'occupationLabel';
+        break;
+      case 'Skills':
+        this.columnName = 'skillsLabel';
+        break;
+      default:
+    }
+
+    this.updateChartData(this.columnName);  
+    }
 
 }

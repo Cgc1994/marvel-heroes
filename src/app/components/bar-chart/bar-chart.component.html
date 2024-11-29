@@ -1,1 +1,12 @@
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Filter by</mat-label>
+    <mat-select [(value)]="selectedOption" (selectionChange)="onOptionChange($event.value)">
+      <mat-option *ngFor="let option of options" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
 <div id="chart" style="width: 100%; height: 400px;"></div>
