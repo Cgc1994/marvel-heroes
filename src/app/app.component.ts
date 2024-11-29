@@ -17,6 +17,26 @@ export class AppComponent {
   heroesNames: string[] = this.originalData.map(item => item.nameLabel);
   selectedHeroes: string[] = [];
 
+  constructor() {}
+
+  ngOnInit() {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const savedData = localStorage.getItem('marvelData');
+      if (savedData) {
+        this.originalData = JSON.parse(savedData);
+        this.dataSource = this.originalData;
+      } else {
+        this.originalData = marvelData;
+        this.dataSource = this.originalData;
+      }
+    } else {
+      this.originalData = marvelData;
+      this.dataSource = this.originalData;
+    }
+
+    this.heroesNames = this.originalData.map(item => item.nameLabel);
+  }
+
 
   onHeroeAdded(heroe: string): void {
     if (!this.selectedHeroes.includes(heroe)) {
@@ -55,16 +75,29 @@ export class AppComponent {
     this.originalData = [heroe, ...this.originalData];
     this.dataSource = [heroe, ...this.dataSource];
     this.heroesNames.push(heroe.nameLabel);
+    this.saveToLocalStorage();
   }
 
   onEdit(element: any): void {
-    console.log('Edit clicked', element);
-    // Lógica para editar
+    const index = this.originalData.findIndex(item => item.nameLabel === element.originalHeroe.nameLabel);
+    if (index >= 0) {
+      this.originalData[index] = element.data;
+      this.dataSource = [...this.originalData];
+      this.saveToLocalStorage();
+    }
   }
 
   onDelete(element: any): void {
-    console.log('Delete clicked', element);
-    // Lógica para eliminar
+    const index = this.originalData.findIndex(item => item.nameLabel === element.nameLabel);
+    if (index >= 0) {
+      this.originalData.splice(index, 1);
+      this.dataSource = [...this.originalData];
+      this.saveToLocalStorage();
+    }
+  }
+
+  private saveToLocalStorage(): void {
+    localStorage.setItem('marvelData', JSON.stringify(this.originalData));
   }
   
 }
