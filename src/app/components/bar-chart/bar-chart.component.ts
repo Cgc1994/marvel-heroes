@@ -43,6 +43,10 @@ export class BarChartComponent implements AfterViewInit {
 
   private renderChart(): void {
     const option = {
+      title: {
+        text: 'Marvel Heroe Bar Chart',
+        left: 'center'
+      },
       tooltip: {
         trigger: 'item',
         formatter: (params: any) => {

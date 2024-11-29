@@ -47,7 +47,7 @@ export class PieChartComponent implements AfterViewInit {
     }));    
     const option = {
       title: {
-        text: 'Marvel Heroe Pie Graph',
+        text: 'Marvel Heroe Pie Chart',
         left: 'center'
       },
       tooltip: {
