@@ -94,8 +94,9 @@ export class TableComponent {
 
   private updateChartData(): void {
     const countryCounts: { [key: string]: number } = {};
+    const filteredData = this.dataSource.filteredData;
 
-    this.originalData.forEach((row: any) => {
+    filteredData.forEach((row: any) => {
       const country = row.citizenshipLabel || 'Unknown';
       countryCounts[country] = (countryCounts[country] || 0) + 1;
     });
@@ -103,7 +104,7 @@ export class TableComponent {
     this.chartData = Object.entries(countryCounts).map(([key, value]) => ({
       key,
       value
-    }));
+    }));    
   }
 
 }

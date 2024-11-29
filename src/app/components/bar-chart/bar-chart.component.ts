@@ -8,7 +8,8 @@ import * as echarts from 'echarts';
   styles: []
 })
 export class BarChartComponent implements AfterViewInit {
-  @Input() data: any = [];
+  @Input() data: { key: string; value: number }[] = [];
+  private chartInstance!: echarts.ECharts;
 
   constructor(private el: ElementRef) {}
 
@@ -16,12 +17,17 @@ export class BarChartComponent implements AfterViewInit {
     this.initChart();
   }
 
-  initChart() {
-    const chartDom = this.el.nativeElement.querySelector('#chart');
-    const myChart = echarts.init(chartDom);
+  ngOnChanges(): void {
+    this.updateChart();
+  }
 
-    const categories = this.data.map((item: { key: any; }) => item.key);
-    const values = this.data.map((item: { value: any; }) => item.value);
+  private initChart(): void {
+    const chartDom = document.getElementById('chart')!;
+    this.chartInstance = echarts.init(chartDom);
+    this.renderChart();
+  }
+
+  private renderChart(): void {
     const option = {
       tooltip: {
         trigger: 'item',
@@ -31,10 +37,9 @@ export class BarChartComponent implements AfterViewInit {
       },
       xAxis: {
         type: 'category',
-        data: categories,
+        data: this.data.map(item => item.key),
         axisLabel: {
-          rotate: 30,
-          formatter: (value: string) => value.length > 10 ? value.slice(0, 10) + '...' : value
+          rotate: 30
         }
       },
       yAxis: {
@@ -42,7 +47,7 @@ export class BarChartComponent implements AfterViewInit {
       },
       series: [
         {
-          data: values,
+          data: this.data.map(item => item.value),
           type: 'bar',
           itemStyle: {
             color: '#3f51b5'
@@ -50,9 +55,22 @@ export class BarChartComponent implements AfterViewInit {
         }
       ]
     };
-    myChart.setOption(option);
-    window.addEventListener('resize', () => {
-      myChart.resize();
-    });
+
+    this.chartInstance.setOption(option);
+  }
+
+  private updateChart(): void {
+    if (this.chartInstance) {
+      this.chartInstance.setOption({
+        xAxis: {
+          data: this.data.map(item => item.key),
+        },
+        series: [
+          {
+            data: this.data.map(item => item.value)
+          }
+        ]
+      });
+    }
   }
 }
