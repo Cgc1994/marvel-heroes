@@ -1,5 +1,5 @@
 import {LiveAnnouncer} from '@angular/cdk/a11y';
-import {AfterViewInit, Component, ViewChild, inject, ChangeDetectionStrategy, Input, SimpleChanges } from '@angular/core';
+import {AfterViewInit, Component, ViewChild, inject, ChangeDetectionStrategy, Input, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {FormsModule} from '@angular/forms';
@@ -20,6 +20,10 @@ export class TableComponent {
   //table logic
   @Input() columns: string[] = [];
   @Input() data: any= [];
+
+  @Output() edit = new EventEmitter<any>();
+  @Output() delete = new EventEmitter<any>();
+
   dataSource = new MatTableDataSource(this.data);
   private originalData = this.data;
 
@@ -54,11 +58,23 @@ export class TableComponent {
     }
   }
 
-  openHeroeModal(row: any): void {
+  openHeroeModal(row: any, event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    if (target.localName === 'mat-icon') {
+      return;
+    }
     this.dialog.open(ModalComponent, {
       width: '400px',
       data: row
     });
+  }
+
+  onEdit(element: any): void {
+    this.edit.emit(element);
+  }
+
+  onDelete(element: any): void {
+    this.delete.emit(element);
   }
 
 }

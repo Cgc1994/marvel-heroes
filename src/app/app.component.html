@@ -11,4 +11,6 @@
 <app-table
   [columns]="displayedColumns"
   [data]="dataSource"
+  (edit)="onEdit($event)"
+  (delete)="onDelete($event)"
 ></app-table>

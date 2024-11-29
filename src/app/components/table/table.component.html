@@ -1,7 +1,19 @@
 <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
        class="mat-elevation-z8">
 
-    <ng-container matColumnDef="nameLabel">
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="primary" (click)="onEdit(element)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="onDelete(element)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>      
+
+  <ng-container matColumnDef="nameLabel">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
       Name
     </th>
@@ -51,5 +63,5 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="columns"></tr>
-  <tr mat-row *matRowDef="let row; columns: columns;" (click)="openHeroeModal(row)"></tr>
+  <tr mat-row *matRowDef="let row; columns: columns;" (click)="openHeroeModal(row, $event)"></tr>
 </table>

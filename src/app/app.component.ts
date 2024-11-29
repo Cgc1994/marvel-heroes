@@ -11,7 +11,7 @@ import { ExpansionFormComponent } from '../app/components/expansion-form/expansi
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  displayedColumns: string[] = ['nameLabel', 'creatorLabel', 'citizenshipLabel', 'genderLabel', 'memberOfLabel', 'occupationLabel', 'skillsLabel'];
+  displayedColumns: string[] = ['actions', 'nameLabel', 'creatorLabel', 'citizenshipLabel', 'genderLabel', 'memberOfLabel', 'occupationLabel', 'skillsLabel'];
   dataSource = marvelData;
   private originalData = marvelData;
   heroesNames: string[] = this.originalData.map(item => item.nameLabel);
@@ -55,6 +55,16 @@ export class AppComponent {
     this.originalData = [heroe, ...this.originalData];
     this.dataSource = [heroe, ...this.dataSource];
     this.heroesNames.push(heroe.nameLabel);
+  }
+
+  onEdit(element: any): void {
+    console.log('Edit clicked', element);
+    // Lógica para editar
+  }
+
+  onDelete(element: any): void {
+    console.log('Delete clicked', element);
+    // Lógica para eliminar
   }
   
 }
