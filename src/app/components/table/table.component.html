@@ -1,7 +1,13 @@
 <app-bar-chart
+  *ngIf="chartData.length > 5"
   [data]="chartData"
   (optionSelected)="handleOptionSelected($event)"
 ></app-bar-chart>
+<app-pie-chart
+  *ngIf="chartData.length < 5"
+  [data]="chartData"
+  (optionSelected)="handleOptionSelected($event)"
+></app-pie-chart>
 
 <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
 

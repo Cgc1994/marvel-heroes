@@ -9,10 +9,12 @@ import {
 } from '@angular/material/dialog';
 import { ModalComponent } from '../modal/modal.component';
 import { BarChartComponent } from '../bar-chart/bar-chart.component';
+import { PieChartComponent } from '../pie-chart/pie-chart.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-table',
-  imports: [MatTableModule, MatSortModule, MatIconModule, FormsModule, BarChartComponent],
+  imports: [MatTableModule, MatSortModule, MatIconModule, FormsModule, BarChartComponent, PieChartComponent, CommonModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -94,8 +96,6 @@ export class TableComponent {
   }
 
   private updateChartData(column: string): void {
-    console.log(column);
-    
     const keyCounts: { [key: string]: number } = {};
     const filteredData = this.dataSource.filteredData;
 
