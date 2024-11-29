@@ -52,8 +52,9 @@ export class AppComponent {
   }
 
   onHeroeCreated(heroe: any) {
-    console.log('Nuevo héroe recibido desde el hijo:', heroe);
+    this.originalData = [heroe, ...this.originalData];
+    this.dataSource = [heroe, ...this.dataSource];
+    this.heroesNames.push(heroe.nameLabel);
   }
-  
   
 }

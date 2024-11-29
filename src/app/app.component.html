@@ -1,3 +1,6 @@
+<app-expansion-form
+  (heroeCreated)="onHeroeCreated($event)"
+></app-expansion-form>
 <app-chip-form
   [heroesNames]="heroesNames"
   [data]="dataSource"
@@ -5,9 +8,6 @@
   (heroeRemoved)="onHeroeRemoved($event)"
   (heroeSelected)="onHeroeSelected($event)"
 ></app-chip-form>
-<app-expansion-form
-  (heroeCreated)="onHeroeCreated($event)"
-></app-expansion-form>
 <app-table
   [columns]="displayedColumns"
   [data]="dataSource"

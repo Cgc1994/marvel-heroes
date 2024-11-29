@@ -9,22 +9,22 @@
 
     <mat-form-field>
       <mat-label>Name</mat-label>
-      <input matInput [(ngModel)]="heroe.name" />
+      <input matInput [(ngModel)]="heroe.nameLabel" required/>
     </mat-form-field>
     
     <mat-form-field>
       <mat-label>Creator</mat-label>
-      <input matInput [(ngModel)]="heroe.creator" />
+      <input matInput [(ngModel)]="heroe.creatorLabel" required/>
     </mat-form-field>
     
     <mat-form-field>
       <mat-label>Country</mat-label>
-      <input matInput [(ngModel)]="heroe.country" />
+      <input matInput [(ngModel)]="heroe.citizenshipLabel" required/>
     </mat-form-field>
     
     <mat-form-field>
       <mat-label>Gender</mat-label>
-      <mat-select [(ngModel)]="heroe.gender">
+      <mat-select [(ngModel)]="heroe.genderLabel" required>
         <mat-option value="male">Male</mat-option>
         <mat-option value="female">Female</mat-option>
       </mat-select>
@@ -32,22 +32,22 @@
     
     <mat-form-field>
       <mat-label>Member of</mat-label>
-      <input matInput [(ngModel)]="heroe.memberOf" />
+      <input matInput [(ngModel)]="heroe.memberOfLabel" required/>
     </mat-form-field>
     
     <mat-form-field>
       <mat-label>Occupation</mat-label>
-      <input matInput [(ngModel)]="heroe.occupation" />
+      <input matInput [(ngModel)]="heroe.occupationLabel" required/>
     </mat-form-field>
     
     <mat-form-field>
       <mat-label>Skills</mat-label>
-      <input matInput [(ngModel)]="heroe.skills" />
+      <input matInput [(ngModel)]="heroe.skillsLabel" required/>
     </mat-form-field>
     
 
     <div class="button-container">
-      <button mat-raised-button color="primary" class="create-button" (click)="createHeroe()">Create</button>
+      <button mat-raised-button color="primary" class="create-button" [disabled]="!isFormValid()" (click)="createHeroe()">Submit</button>
     </div>
   </mat-expansion-panel>
 </mat-accordion>

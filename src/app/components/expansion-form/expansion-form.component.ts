@@ -32,26 +32,39 @@ export class ExpansionFormComponent {
   @Output() heroeCreated = new EventEmitter<any>();
 
   heroe: any = {
-    name: '',
-    creator: '',
-    country: '',
-    gender: '',
-    memberOf: '',
-    occupation: '',
-    skills: ''
+    nameLabel: '',
+    creatorLabel: '',
+    citizenshipLabel: '',
+    genderLabel: '',
+    memberOfLabel: '',
+    occupationLabel: '',
+    skillsLabel: ''
   };
 
   createHeroe() {
     this.heroeCreated.emit(this.heroe);
     this.heroe = {
-      name: '',
-      creator: '',
-      country: '',
-      gender: '',
-      memberOf: '',
-      occupation: '',
-      skills: ''
+      nameLabel: '',
+      creatorLabel: '',
+      citizenshipLabel: '',
+      genderLabel: '',
+      memberOfLabel: '',
+      occupationLabel: '',
+      skillsLabel: ''
     };
     this.accordion().closeAll()
   };
+
+  isFormValid(): boolean {
+    return !!(
+      this.heroe.nameLabel &&
+      this.heroe.creatorLabel &&
+      this.heroe.citizenshipLabel &&
+      this.heroe.genderLabel &&
+      this.heroe.memberOfLabel &&
+      this.heroe.occupationLabel &&
+      this.heroe.skillsLabel
+    );
+  }
+  
 }
