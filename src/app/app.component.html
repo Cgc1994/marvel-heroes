@@ -1,13 +1,14 @@
-<app-expansion-form
-  (heroeCreated)="onHeroeCreated($event)"
-></app-expansion-form>
-<app-chip-form
-  [heroesNames]="heroesNames"
-  [data]="dataSource"
-  (heroeAdded)="onHeroeAdded($event)"
-  (heroeRemoved)="onHeroeRemoved($event)"
-  (heroeSelected)="onHeroeSelected($event)"
-></app-chip-form>
+<div class="container">
+  <app-expansion-form (heroeCreated)="onHeroeCreated($event)"></app-expansion-form>
+  <app-chip-form
+    [heroesNames]="heroesNames"
+    [data]="dataSource"
+    (heroeAdded)="onHeroeAdded($event)"
+    (heroeRemoved)="onHeroeRemoved($event)"
+    (heroeSelected)="onHeroeSelected($event)"
+  ></app-chip-form>
+</div>
+
 <app-table
   [columns]="displayedColumns"
   [data]="dataSource"
