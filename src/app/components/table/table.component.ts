@@ -8,10 +8,11 @@ import {
   MatDialog,
 } from '@angular/material/dialog';
 import { ModalComponent } from '../modal/modal.component';
+import { BarChartComponent } from '../bar-chart/bar-chart.component';
 
 @Component({
   selector: 'app-table',
-  imports: [MatTableModule, MatSortModule, MatIconModule, FormsModule],
+  imports: [MatTableModule, MatSortModule, MatIconModule, FormsModule, BarChartComponent],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,12 +37,14 @@ export class TableComponent {
   @ViewChild(MatSort)
   sort: MatSort = new MatSort;
 
-  // constructor(private dialog: MatDialog) {}
+  //chart
+  chartData: { key: string, value: number }[] = [];
 
   ngAfterViewInit() {
     this.originalData = this.data;
     this.dataSource = new MatTableDataSource(this.data);
-    this.dataSource.sort = this.sort;
+    this.dataSource.sort = this.sort;   
+    this.updateChartData();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -49,6 +52,7 @@ export class TableComponent {
       this.originalData = changes['data'].currentValue;
       this.dataSource = new MatTableDataSource(this.originalData);
       this.dataSource.sort = this.sort;
+      this.updateChartData();
     }
   }
 
@@ -86,6 +90,20 @@ export class TableComponent {
 
   onDelete(element: any): void {
     this.delete.emit(element);
+  }
+
+  private updateChartData(): void {
+    const countryCounts: { [key: string]: number } = {};
+
+    this.originalData.forEach((row: any) => {
+      const country = row.citizenshipLabel || 'Unknown';
+      countryCounts[country] = (countryCounts[country] || 0) + 1;
+    });
+
+    this.chartData = Object.entries(countryCounts).map(([key, value]) => ({
+      key,
+      value
+    }));
   }
 
 }
