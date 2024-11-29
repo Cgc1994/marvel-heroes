@@ -3,8 +3,9 @@
   [data]="chartData"
   (optionSelected)="handleOptionSelected($event)"
 ></app-bar-chart>
+
 <app-pie-chart
-  *ngIf="chartData.length < 5"
+  *ngIf="chartData.length <= 5"
   [data]="chartData"
   (optionSelected)="handleOptionSelected($event)"
 ></app-pie-chart>

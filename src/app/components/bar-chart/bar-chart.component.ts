@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ElementRef, OnInit, AfterViewInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import * as echarts from 'echarts';
@@ -85,6 +85,12 @@ export class BarChartComponent implements AfterViewInit {
           }
         ]
       });
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.chartInstance) {
+      this.chartInstance.dispose();
     }
   }
 
