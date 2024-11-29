@@ -28,6 +28,7 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class ExpansionFormComponent {
   accordion = viewChild.required(MatAccordion);
+  isOpen = false;
 
   @Output() heroeCreated = new EventEmitter<any>();
 
@@ -65,6 +66,15 @@ export class ExpansionFormComponent {
       this.heroe.occupationLabel &&
       this.heroe.skillsLabel
     );
+  }
+
+  toggleAccordion() {
+    if (this.isOpen) {
+      this.accordion().closeAll();
+    } else {
+      this.accordion().openAll();
+    }
+    this.isOpen = !this.isOpen;
   }
   
 }
