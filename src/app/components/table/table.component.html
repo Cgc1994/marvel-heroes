@@ -1,34 +1,3 @@
-<form>
-  <mat-form-field class="example-chip-list">
-    <mat-label>Filter heroes</mat-label>
-    <mat-chip-grid #chipGrid>
-      @for (heroe of heroes(); track $index) {
-        <mat-chip-row (removed)="remove(heroe)">
-          {{heroe}}
-          <button matChipRemove [attr.aria-label]="'remove ' + heroe">
-            <mat-icon>cancel</mat-icon>
-          </button>
-        </mat-chip-row>
-      }
-    </mat-chip-grid>
-    <input
-      name="currentHeroe"
-      placeholder="Type your heroe..."
-      #heroeInput
-      [(ngModel)]="currentHeroe"
-      [matChipInputFor]="chipGrid"
-      [matAutocomplete]="auto"
-      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-      (matChipInputTokenEnd)="add($event)"
-    />
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-      @for (heroe of filteredHeroes(); track heroe) {
-        <mat-option [value]="heroe">{{heroe}}</mat-option>
-      }
-    </mat-autocomplete>
-  </mat-form-field>
-</form>
-
 <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
        class="mat-elevation-z8">
 

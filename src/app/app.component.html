@@ -1,3 +1,10 @@
+<app-chip-form
+  [heroesNames]="heroesNames"
+  [data]="dataSource"
+  (heroeAdded)="onHeroeAdded($event)"
+  (heroeRemoved)="onHeroeRemoved($event)"
+  (heroeSelected)="onHeroeSelected($event)"
+></app-chip-form>
 <app-table
   [columns]="displayedColumns"
   [data]="dataSource"
