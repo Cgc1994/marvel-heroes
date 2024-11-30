@@ -1,5 +1,5 @@
 import {LiveAnnouncer} from '@angular/cdk/a11y';
-import {AfterViewInit, Component, inject, computed, model, signal, Input, EventEmitter, Output} from '@angular/core';
+import {AfterViewInit, Component, inject, computed, model, signal, Input, EventEmitter, Output, SimpleChanges} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {FormsModule} from '@angular/forms';
@@ -22,18 +22,24 @@ export class ChipFormComponent {
   @Output() heroeRemoved = new EventEmitter<string>();
   @Output() heroeSelected = new EventEmitter<string>();
 
+    private heroesNamesSignal = signal<string[]>([]);
    readonly separatorKeysCodes: number[] = [ENTER, COMMA];
    readonly currentHeroe = model('');
    readonly heroes = signal<string[]>([]);
    readonly filteredHeroes = computed(() => {
-     const currentHeroe = this.currentHeroe().toLowerCase();
-     return currentHeroe
-       ? this.heroesNames.filter((heroe: string) => heroe.toLowerCase().includes(currentHeroe))
-       : this.heroesNames;
-   });
+    const currentHeroe = this.currentHeroe().toLowerCase();
+    return currentHeroe
+      ? this.heroesNamesSignal().filter((heroe: string) => heroe.toLowerCase().includes(currentHeroe))
+      : this.heroesNamesSignal();
+  });
+
    readonly announcer = inject(LiveAnnouncer);
    dataSource = new MatTableDataSource(this.data);
    private originalData = this.data;
+
+   ngOnChanges(changes: SimpleChanges): void {
+    this.heroesNamesSignal.set([...this.heroesNames]); 
+   }
 
    add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
@@ -51,18 +57,24 @@ export class ChipFormComponent {
       if (index < 0) {
         return heroes;
       }
-
       heroes.splice(index, 1);
       this.announcer.announce(`Removed ${heroe}`);
       this.heroeRemoved.emit(heroe);
       return [...heroes];
     });
+    
+    if (!this.heroesNames.includes(heroe)) {
+      this.heroesNames = [...this.heroesNames, heroe];
+    }
+
+    this.currentHeroe.set('');
     this.filterTable();
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {    
     const selectedHeroe = event.option.viewValue;
     this.heroes.update(heroes => [...heroes, event.option.viewValue]);
+    this.heroesNames = this.heroesNames.filter(heroe => heroe !== selectedHeroe);
     this.heroeSelected.emit(selectedHeroe);
     this.currentHeroe.set('');
     event.option.deselect();
