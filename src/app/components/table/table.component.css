@@ -53,6 +53,11 @@ table tr:nth-child(even) {
   background-color: #ffffff; 
 }
 
+table tr:hover {
+  background-color: #e0e0e0; 
+  transition: background-color 0.3s ease; 
+}
+
 table th {
   background-color: #f1f1f1; 
 }
