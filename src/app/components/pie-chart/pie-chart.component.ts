@@ -4,9 +4,6 @@ import { MatSelectModule } from '@angular/material/select';
 import * as echarts from 'echarts';
 import { CommonModule } from '@angular/common';
 
-import { ChartData } from '../../models/chart.model';
-import { ChartOptionEvent } from '../../models/chart.option.model';
-
 @Component({
   selector: 'app-pie-chart',
   templateUrl: './pie-chart.component.html',
@@ -18,9 +15,8 @@ import { ChartOptionEvent } from '../../models/chart.option.model';
   ]
 })
 export class PieChartComponent implements AfterViewInit {
-  @Input() data: ChartData[] = [];
-  @Output() optionSelected = new EventEmitter<ChartOptionEvent>();
-
+  @Input() data: { key: string; value: number }[] = [];
+  @Output() optionSelected = new EventEmitter<string>();
   options: string[] = [
     'Creator', 'Country', 
     'Gender', 'Member of', 'Occupation', 'Skills'
@@ -95,6 +91,5 @@ export class PieChartComponent implements AfterViewInit {
   }
 
   onOptionChange(selected: string): void {
-    this.optionSelected.emit({ selectedOption: selected });
-  }
+    this.optionSelected.emit(selected);  }
 }
