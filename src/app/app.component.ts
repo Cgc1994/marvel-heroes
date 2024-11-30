@@ -4,6 +4,8 @@ import marvelData  from './assets/mock-data/wikipedia_marvel_data.json';
 import { ChipFormComponent } from '../app/components/chip-form/chip-form.component';
 import { ExpansionFormComponent } from '../app/components/expansion-form/expansion-form.component';
 
+import { Heroe } from '../app/models/heroe.model';
+
 @Component({
   selector: 'app-root',
   imports: [TableComponent, ChipFormComponent, ExpansionFormComponent],
@@ -12,8 +14,8 @@ import { ExpansionFormComponent } from '../app/components/expansion-form/expansi
 })
 export class AppComponent {
   displayedColumns: string[] = ['actions', 'nameLabel', 'creatorLabel', 'citizenshipLabel', 'genderLabel', 'memberOfLabel', 'occupationLabel', 'skillsLabel'];
-  dataSource = marvelData;
-  private originalData = marvelData;
+  dataSource: Heroe[] = marvelData;
+  private originalData: Heroe[] = marvelData;
   heroesNames: string[] = this.originalData.map(item => item.nameLabel);
   selectedHeroes: string[] = [];
 

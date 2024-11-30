@@ -12,6 +12,8 @@ import { BarChartComponent } from '../bar-chart/bar-chart.component';
 import { PieChartComponent } from '../pie-chart/pie-chart.component';
 import { CommonModule } from '@angular/common';
 
+import { Heroe } from '../../models/heroe.model';
+
 @Component({
   selector: 'app-table',
   imports: [MatTableModule, MatSortModule, MatIconModule, FormsModule, BarChartComponent, PieChartComponent, CommonModule],
@@ -22,13 +24,13 @@ import { CommonModule } from '@angular/common';
 export class TableComponent {
   //table logic
   @Input() columns: string[] = [];
-  @Input() data: any= [];
+  @Input() data: Heroe[] = [];
 
   @Output() delete = new EventEmitter<any>();
   @Output() edit = new EventEmitter<any>();
 
-  dataSource = new MatTableDataSource(this.data);
-  private originalData = this.data;
+  dataSource = new MatTableDataSource<Heroe>(this.data);
+  private originalData: Heroe[] = [];
 
   //sort
   private _liveAnnouncer = inject(LiveAnnouncer);
