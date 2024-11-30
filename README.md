@@ -12,6 +12,9 @@ The project consists of:
 - Lookup table of all records.
 - Wizard to create.
 - Modal component for editing and/or querying.
+- Using components of a UI library (Angular Material, Echarts.js).
+- Demonstrate data communication between components.
+- Creation of interfaces.
 - Bar chart and pie chart to represent totalities filtered by creator, country of origin, skills etc.
 - Chip component to filter heroes in the table, adding and removing 'live-action'.
 - Persistent data, when refreshing the browser the data persists despite not having a real database.
