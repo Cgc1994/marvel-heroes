@@ -15,12 +15,14 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef> Actions </th>
     <td mat-cell *matCellDef="let element">
-      <button mat-icon-button color="primary" (click)="onEdit(element)">
+    <div class="button-container">
+      <button mat-icon-button class="btn-rounded edit-btn" (click)="onEdit(element)">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button color="warn" (click)="onDelete(element)">
+      <button mat-icon-button class="btn-rounded delete-btn" (click)="onDelete(element)">
         <mat-icon>delete</mat-icon>
-      </button>
+      </button>     
+    </div> 
     </td>
   </ng-container>      
 

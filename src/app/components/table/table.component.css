@@ -9,3 +9,38 @@ th.mat-sort-header-sorted {
 .example-chip-list {
   width: 100%;
 }
+
+.btn-rounded {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.edit-btn {
+  color: white; 
+  background-color: rgb(42, 220, 75); 
+}
+
+.edit-btn:hover {
+  background-color: rgb(14, 178, 14);
+}
+
+.delete-btn {
+  color: white; 
+  background-color: rgb(235, 60, 60); 
+}
+
+.delete-btn:hover {
+  background-color: darkred; 
+}
+
+.button-container {
+  display: flex; 
+  gap: 8px; 
+  justify-content: center; 
+  align-items: center; 
+}
