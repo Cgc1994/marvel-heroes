@@ -76,3 +76,10 @@
   <tr mat-header-row *matHeaderRowDef="columns"></tr>
   <tr mat-row *matRowDef="let row; columns: columns;" (click)="openHeroeModal(row, $event)"></tr>
 </table>
+
+<mat-paginator 
+  [length]="dataSource.data.length"
+  [pageSize]="10"
+  [pageSizeOptions]="[5, 10, 20]"
+  aria-label="Select page">
+</mat-paginator>

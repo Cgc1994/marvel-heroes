@@ -7,6 +7,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {
   MatDialog,
 } from '@angular/material/dialog';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+
+
 import { ModalComponent } from '../modal/modal.component';
 import { BarChartComponent } from '../bar-chart/bar-chart.component';
 import { PieChartComponent } from '../pie-chart/pie-chart.component';
@@ -18,7 +21,7 @@ import { ModalData } from '../../models/modal.model';
 
 @Component({
   selector: 'app-table',
-  imports: [MatTableModule, MatSortModule, MatIconModule, FormsModule, BarChartComponent, PieChartComponent, CommonModule],
+  imports: [MatTableModule, MatSortModule, MatIconModule, FormsModule, BarChartComponent, PieChartComponent, CommonModule, MatPaginatorModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -42,6 +45,7 @@ export class TableComponent {
 
   @ViewChild(MatSort)
   sort: MatSort = new MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   //chart
   chartData: ChartData[] = [];
@@ -50,7 +54,10 @@ export class TableComponent {
   ngAfterViewInit() {
     this.originalData = this.data;
     this.dataSource = new MatTableDataSource(this.data);
-    this.dataSource.sort = this.sort;   
+    this.dataSource.sort = this.sort; 
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+    }     
     this.updateChartData(this.columnName);
   }
 
@@ -59,6 +66,9 @@ export class TableComponent {
       this.originalData = changes['data'].currentValue;
       this.dataSource = new MatTableDataSource(this.originalData);
       this.dataSource.sort = this.sort;
+      if (this.paginator) {
+        this.dataSource.paginator = this.paginator;
+      }
       this.updateChartData(this.columnName);
     }
   }
