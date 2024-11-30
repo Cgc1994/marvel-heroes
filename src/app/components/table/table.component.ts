@@ -28,8 +28,8 @@ export class TableComponent {
   @Input() columns: string[] = [];
   @Input() data: Heroe[] = [];
 
-  @Output() delete = new EventEmitter<any>();
-  @Output() edit = new EventEmitter<any>();
+  @Output() delete = new EventEmitter<Heroe>();
+  @Output() edit = new EventEmitter<Heroe>();
 
   dataSource = new MatTableDataSource<Heroe>(this.data);
   private originalData: Heroe[] = [];
@@ -71,7 +71,7 @@ export class TableComponent {
     }
   }
 
-  openHeroeModal(row: any, event: MouseEvent): void {
+  openHeroeModal(row: Heroe, event: MouseEvent): void {
     const target = event.target as HTMLElement;    
     if (target.localName === 'mat-icon' || target.localName === 'button') {
       return;
@@ -82,7 +82,7 @@ export class TableComponent {
     });
   }
 
-  onEdit(row: any): void {
+  onEdit(row: Heroe): void {
     const dialogRef = this.dialog.open<ModalComponent, ModalData>(ModalComponent, {
       width: '1000px',
       data: { ...row, disabled: false }
