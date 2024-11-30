@@ -3,6 +3,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import * as echarts from 'echarts';
 import { CommonModule } from '@angular/common';
+import { ChartData } from '../../models/chart.model';
 
 @Component({
   selector: 'app-pie-chart',
@@ -15,7 +16,7 @@ import { CommonModule } from '@angular/common';
   ]
 })
 export class PieChartComponent implements AfterViewInit {
-  @Input() data: { key: string; value: number }[] = [];
+  @Input() data: ChartData[] = [];
   @Output() optionSelected = new EventEmitter<string>();
   options: string[] = [
     'Creator', 'Country', 

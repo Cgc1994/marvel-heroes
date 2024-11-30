@@ -4,6 +4,8 @@ import { MatSelectModule } from '@angular/material/select';
 import * as echarts from 'echarts';
 import { CommonModule } from '@angular/common';
 
+import { ChartData } from '../../models/chart.model';
+
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',
@@ -16,7 +18,7 @@ import { CommonModule } from '@angular/common';
   ]
 })
 export class BarChartComponent implements AfterViewInit {
-  @Input() data: { key: string; value: number }[] = [];
+  @Input() data: ChartData[] = [];
   @Output() optionSelected = new EventEmitter<string>();
   options: string[] = [
     'Creator', 'Country', 
