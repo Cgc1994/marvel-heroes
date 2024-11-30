@@ -8,6 +8,8 @@ import {MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 
+import { Heroe } from '../../models/heroe.model';
+
 @Component({
   selector: 'app-chip-form',
   imports: [MatFormFieldModule, MatChipsModule, MatIconModule, MatAutocompleteModule, FormsModule],
@@ -16,13 +18,13 @@ import {MatIconModule} from '@angular/material/icon';
 })
 export class ChipFormComponent {
   @Input() heroesNames: string[] = [];
-  @Input() data: any= [];
+  @Input() data: Heroe[] = [];
 
   @Output() heroeAdded = new EventEmitter<string>();
   @Output() heroeRemoved = new EventEmitter<string>();
   @Output() heroeSelected = new EventEmitter<string>();
 
-    private heroesNamesSignal = signal<string[]>([]);
+   private heroesNamesSignal = signal<string[]>([]);
    readonly separatorKeysCodes: number[] = [ENTER, COMMA];
    readonly currentHeroe = model('');
    readonly heroes = signal<string[]>([]);
@@ -34,8 +36,8 @@ export class ChipFormComponent {
   });
 
    readonly announcer = inject(LiveAnnouncer);
-   dataSource = new MatTableDataSource(this.data);
-   private originalData = this.data;
+   dataSource = new MatTableDataSource<Heroe>(this.data);
+   private originalData: Heroe[] = this.data;
 
    ngOnChanges(changes: SimpleChanges): void {
     this.heroesNamesSignal.set([...this.heroesNames]); 
