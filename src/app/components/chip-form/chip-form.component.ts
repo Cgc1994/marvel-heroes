@@ -8,6 +8,9 @@ import {MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 
+import { Heroe } from '../../../app/models/heroe.model';
+import { HeroEvent } from '../../../app/models/heroe.event.model';
+
 @Component({
   selector: 'app-chip-form',
   imports: [MatFormFieldModule, MatChipsModule, MatIconModule, MatAutocompleteModule, FormsModule],
@@ -16,13 +19,13 @@ import {MatIconModule} from '@angular/material/icon';
 })
 export class ChipFormComponent {
   @Input() heroesNames: string[] = [];
-  @Input() data: any= [];
+  @Input() data: Heroe[] = [];
 
-  @Output() heroeAdded = new EventEmitter<string>();
-  @Output() heroeRemoved = new EventEmitter<string>();
-  @Output() heroeSelected = new EventEmitter<string>();
+  @Output() heroeAdded = new EventEmitter<HeroEvent>();
+  @Output() heroeRemoved = new EventEmitter<HeroEvent>();
+  @Output() heroeSelected = new EventEmitter<HeroEvent>();
 
-    private heroesNamesSignal = signal<string[]>([]);
+   private heroesNamesSignal = signal<string[]>([]);
    readonly separatorKeysCodes: number[] = [ENTER, COMMA];
    readonly currentHeroe = model('');
    readonly heroes = signal<string[]>([]);
@@ -34,8 +37,8 @@ export class ChipFormComponent {
   });
 
    readonly announcer = inject(LiveAnnouncer);
-   dataSource = new MatTableDataSource(this.data);
-   private originalData = this.data;
+   dataSource = new MatTableDataSource<Heroe>(this.data);
+   private originalData: Heroe[] = [];
 
    ngOnChanges(changes: SimpleChanges): void {
     this.heroesNamesSignal.set([...this.heroesNames]); 
@@ -45,7 +48,7 @@ export class ChipFormComponent {
     const value = (event.value || '').trim();
     if (value) {
       this.heroes.update(heroes => [...heroes, value]);
-      this.heroeAdded.emit(value);
+      this.heroeAdded.emit({ name: value });
     }
     this.currentHeroe.set('');
     this.filterTable();
@@ -59,7 +62,7 @@ export class ChipFormComponent {
       }
       heroes.splice(index, 1);
       this.announcer.announce(`Removed ${heroe}`);
-      this.heroeRemoved.emit(heroe);
+      this.heroeRemoved.emit({ name: heroe });
       return [...heroes];
     });
     
@@ -75,7 +78,7 @@ export class ChipFormComponent {
     const selectedHeroe = event.option.viewValue;
     this.heroes.update(heroes => [...heroes, event.option.viewValue]);
     this.heroesNames = this.heroesNames.filter(heroe => heroe !== selectedHeroe);
-    this.heroeSelected.emit(selectedHeroe);
+    this.heroeSelected.emit({ name: selectedHeroe });
     this.currentHeroe.set('');
     event.option.deselect();
     this.filterTable();

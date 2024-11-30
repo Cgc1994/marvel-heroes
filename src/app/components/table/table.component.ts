@@ -12,6 +12,10 @@ import { BarChartComponent } from '../bar-chart/bar-chart.component';
 import { PieChartComponent } from '../pie-chart/pie-chart.component';
 import { CommonModule } from '@angular/common';
 
+import { Heroe } from '../../../app/models/heroe.model';
+import { ChartData } from '../../../app/models/chart.model';
+import { ModalData } from '../../../app/models/modal.model';
+
 @Component({
   selector: 'app-table',
   imports: [MatTableModule, MatSortModule, MatIconModule, FormsModule, BarChartComponent, PieChartComponent, CommonModule],
@@ -22,13 +26,13 @@ import { CommonModule } from '@angular/common';
 export class TableComponent {
   //table logic
   @Input() columns: string[] = [];
-  @Input() data: any= [];
+  @Input() data: Heroe[] = [];
 
-  @Output() delete = new EventEmitter<any>();
-  @Output() edit = new EventEmitter<any>();
+  @Output() delete = new EventEmitter<Heroe>();
+  @Output() edit = new EventEmitter<Heroe>();
 
-  dataSource = new MatTableDataSource(this.data);
-  private originalData = this.data;
+  dataSource = new MatTableDataSource<Heroe>(this.data);
+  private originalData: Heroe[] = [];
 
   //sort
   private _liveAnnouncer = inject(LiveAnnouncer);
@@ -40,7 +44,7 @@ export class TableComponent {
   sort: MatSort = new MatSort;
 
   //chart
-  chartData: { key: string, value: number }[] = [];
+  chartData: ChartData[] = [];
   columnName: string = 'creatorLabel';
 
   ngAfterViewInit() {
@@ -72,14 +76,14 @@ export class TableComponent {
     if (target.localName === 'mat-icon' || target.localName === 'button') {
       return;
     }
-    this.dialog.open(ModalComponent, {
+    this.dialog.open<ModalComponent, ModalData>(ModalComponent, {
       width: '1000px',
       data: { ...row, disabled: true }
     });
   }
 
   onEdit(row: any): void {
-    const dialogRef = this.dialog.open(ModalComponent, {
+    const dialogRef = this.dialog.open<ModalComponent, ModalData>(ModalComponent, {
       width: '1000px',
       data: { ...row, disabled: false }
     });
