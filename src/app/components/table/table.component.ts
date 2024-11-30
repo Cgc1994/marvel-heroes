@@ -13,6 +13,8 @@ import { PieChartComponent } from '../pie-chart/pie-chart.component';
 import { CommonModule } from '@angular/common';
 
 import { Heroe } from '../../models/heroe.model';
+import { ChartData } from '../../models/chart.model';
+import { ModalData } from '../../models/modal.model';
 
 @Component({
   selector: 'app-table',
@@ -42,7 +44,7 @@ export class TableComponent {
   sort: MatSort = new MatSort;
 
   //chart
-  chartData: { key: string, value: number }[] = [];
+  chartData: ChartData[] = [];
   columnName: string = 'creatorLabel';
 
   ngAfterViewInit() {
@@ -74,14 +76,14 @@ export class TableComponent {
     if (target.localName === 'mat-icon' || target.localName === 'button') {
       return;
     }
-    this.dialog.open(ModalComponent, {
+    this.dialog.open<ModalComponent, ModalData>(ModalComponent, {
       width: '1000px',
       data: { ...row, disabled: true }
     });
   }
 
   onEdit(row: any): void {
-    const dialogRef = this.dialog.open(ModalComponent, {
+    const dialogRef = this.dialog.open<ModalComponent, ModalData>(ModalComponent, {
       width: '1000px',
       data: { ...row, disabled: false }
     });
