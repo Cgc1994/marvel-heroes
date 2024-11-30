@@ -67,6 +67,7 @@ export class ChipFormComponent {
     
     if (!this.heroesNames.includes(heroe)) {
       this.heroesNames = [...this.heroesNames, heroe];
+      this.heroesNames.sort();
     }
 
     this.currentHeroe.set('');
