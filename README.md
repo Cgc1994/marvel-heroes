@@ -14,6 +14,7 @@ The project consists of:
 - Modal component for editing and/or querying.
 - Using components of a UI library (Angular Material, Echarts.js).
 - Creation of personal, atomic components.
+- Creation and use of custom pipes.
 - Demonstrate data communication between components.
 - Creation of interfaces.
 - Bar chart and pie chart to represent totalities filtered by creator, country of origin, skills etc.

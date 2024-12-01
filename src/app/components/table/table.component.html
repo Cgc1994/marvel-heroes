@@ -30,49 +30,49 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
       Name
     </th>
-    <td mat-cell *matCellDef="let element"> {{element.nameLabel}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.nameLabel | capitalize}} </td>
   </ng-container>
 
   <ng-container matColumnDef="creatorLabel">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
       Creator
     </th>
-    <td mat-cell *matCellDef="let element"> {{element.creatorLabel}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.creatorLabel | capitalize}} </td>
   </ng-container>
 
   <ng-container matColumnDef="citizenshipLabel">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
       Country
     </th>
-    <td mat-cell *matCellDef="let element"> {{element.citizenshipLabel}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.citizenshipLabel | capitalize}} </td>
   </ng-container>
 
   <ng-container matColumnDef="genderLabel">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
       Gender
     </th>
-    <td mat-cell *matCellDef="let element"> {{element.genderLabel}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.genderLabel | capitalize}} </td>
   </ng-container>
 
   <ng-container matColumnDef="memberOfLabel">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
       Member of
     </th>
-    <td mat-cell *matCellDef="let element"> {{element.memberOfLabel}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.memberOfLabel | capitalize}} </td>
   </ng-container>
 
   <ng-container matColumnDef="occupationLabel">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
       Occupation
     </th>
-    <td mat-cell *matCellDef="let element"> {{element.occupationLabel}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.occupationLabel | capitalize}} </td>
   </ng-container>
 
   <ng-container matColumnDef="skillsLabel">
     <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
       Skills
     </th>
-    <td mat-cell *matCellDef="let element"> {{element.skillsLabel}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.skillsLabel | capitalize}} </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="columns"></tr>

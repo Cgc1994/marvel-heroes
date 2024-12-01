@@ -19,9 +19,11 @@ import { Heroe } from '../../models/heroe.model';
 import { ChartData } from '../../models/chart.model';
 import { ModalData } from '../../models/modal.model';
 
+import { PipesModule } from '../../pipes/pipes.module';
+
 @Component({
   selector: 'app-table',
-  imports: [MatTableModule, MatSortModule, MatIconModule, FormsModule, BarChartComponent, PieChartComponent, CommonModule, MatPaginatorModule],
+  imports: [MatTableModule, MatSortModule, MatIconModule, FormsModule, BarChartComponent, PieChartComponent, CommonModule, MatPaginatorModule, PipesModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
